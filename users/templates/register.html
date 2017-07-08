@@ -1,0 +1,39 @@
+{% extends 'photos/base.html' %}
+
+{% block some_page_contents %}
+    {% load staticfiles %}
+<h1 style="color:teal;">Registeration form</h1>
+<form action="" class="reg_form" method="post" style="color:teal; background: #ccccff;">
+    {% csrf_token %}
+    <div class="register_div" >
+        {% if form.username.errors %}<p class="error">{{ form.username.errors }}</p>{%endif%}
+        <label for="username"{% if form.username.errors %} class="error"{% endif %} >
+            Username:</label>
+        {{ form.username }}
+    </div>
+    <div class="register_div">
+        {% if form.email.errors %}<p class="error">{{ form.email.errors }}</p>{%endif%}
+        <label for="email"{% if form.email.errors %} class="error"{% endif %}>
+            Email:</label>
+        {{ form.email }}
+    </div>
+    <div class="register_div">
+        {% if form.password.errors %}<p class="error">{{ form.password.errors }}</p>{%endif%}
+        <label for="password"{% if form.password.errors %} class="error"{% endif %}>
+            Password:</label>
+        {{ form.password }}
+    </div>
+    <div class="register_div">
+        {% if form.password1.errors %}<p class="error">{{ form.password1.errors }}</p>{%endif%}
+        <label for="password1"{% if form.password1.errors %} class="error"{% endif %}>
+            Verify Password:</label>
+        {{ form.password1 }}
+    </div>
+   <div class="register_div">
+        <input style="width: 100%;" type="submit" alt="register" >
+
+    </div>
+</form>
+
+       <a href="/users/login/" style="color:#990000" ><h3>Have an acount ? login instead</h3></a>
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends "photos/base.html" %}
+{% load static %}
+
+{% block title %}
+  Your shopping cart
+{% endblock %}
+
+{% block some_page_contents %}
+  <h1>Your shopping cart</h1>
+  <table class="cart" >
+    <thead>
+      <tr>
+        <th>Image</th>
+        <th>Product</th>
+        <th>Remove</th>
+        <th>Unit price</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in cart %}
+        {% with product=item.product %}
+          <tr style="background: #ccccff">
+            <td>
+              <a href="{% url 'photos:detail' product.id %}">
+                  <img src="{{ product.photo.url }}" class="img-responsive" style="float: left;"/>
+              </a>
+            </td>
+            <td>{{ product.name }}</td>
+
+            <td><a href="{% url 'cart:cart_remove' product.id %}">Remove</a></td>
+            <td class="num">${{ item.price }}</td>
+            <td class="num">${{ item.total_price }}</td>
+          </tr>
+        {% endwith %}
+      {% endfor %}
+      <tr class="total" style="background:#31b0d5">
+        <td>Total</td>
+        <td colspan="3"></td>
+        <td class="num">${{ cart.get_total_price }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="text-center register_div" >
+    <a href="{% url 'photos:index' %}" class="button light" style="color:#0080ff">Continue shopping</a>
+    <a href="{% url 'orders:order_create' %}" class="button" style="color:#0080ff">
+      Checkout
+    </a>
+  </p>
+{% endblock %}

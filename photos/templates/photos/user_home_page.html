@@ -1,0 +1,112 @@
+{% extends 'photos/base.html' %}
+
+{% block some_page_contents %}
+    {% load staticfiles %}
+
+    {% if uploads_size > 0 %}
+            <h1>Your uploads history</h1>
+<section class="grid">
+            <!-- Loader 
+            <img class="grid__loader" src="{% static 'photos/images/grid.svg' %}" width="60" alt="Loader image" />
+            -->
+            <!-- Grid sizer for a fluid Isotope (Masonry) layout -->
+            <div class="grid__sizer"></div>
+                <!--div class="row"-->
+                    {% for photo in photos_of_user_uploads %}
+                        <div class="grid__item shirts">
+                            <div class="slider">
+                                <div class="slider__item"> 
+                                    <a href="#" >
+                                    <img src="{{ photo.product.url }}" alt="Dummy" />
+                                    </a>
+                                </div>
+
+                                
+                            </div>
+                            
+                            </div>
+
+                        </div>
+
+
+                    
+                    {% endfor %}
+                <!--/--div-->
+</section>
+{% else %}
+            <h3>You don't have any uploads.</h3>
+        {% endif %}
+
+
+{% if orders_size > 0 %}
+            <h1>Your orders history</h1>
+
+        <section class="grid">
+            <!-- Loader 
+            <img class="grid__loader" src="{% static 'photos/images/grid.svg' %}" width="60" alt="Loader image" />
+            -->
+            <!-- Grid sizer for a fluid Isotope (Masonry) layout -->
+            <div class="grid__sizer"></div>
+                <!--div class="row"-->
+                    {%  for photo in photos_of_user_orders %}
+                        <div class="grid__item shirts">
+                            <div class="slider">
+                                <div class="slider__item"> 
+                                    <a href="{% url 'photos:detail' photo.id %}" >
+                                    <img src="{{ photo.photo.url }}" alt="Dummy" />
+                                    </a>
+                                </div>
+
+                                
+                            </div>
+                            
+
+                        </div>
+
+
+                    
+                    {% endfor %}
+                <!--/--div-->
+</section>
+{% else %}
+            <h3>You don't have any orders.</h3>
+        {% endif %}
+
+{% if orders_size > 0 %}
+            <h1>Recommended for you:</h1>
+            <section class="grid">
+            <!-- Loader 
+            <img class="grid__loader" src="{% static 'photos/images/grid.svg' %}" width="60" alt="Loader image" />
+            -->
+            <!-- Grid sizer for a fluid Isotope (Masonry) layout -->
+            <div class="grid__sizer"></div>
+                <!--div class="row"-->
+                    {%  for photo in final_recommended_photos %}
+                        <div class="grid__item shirts">
+                            <div class="slider">
+                                <div class="slider__item"> 
+                                    <a href="{% url 'photos:detail' photo.id %}" >
+                                    <img src="{{ photo.photo.url }}" alt="Dummy" />
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="meta">                                
+                                <form id="cartform" action="{% url 'cart:cart_add' photo.id %}" method="post">
+                                {{ cart_product_form }}
+                                {% csrf_token %}
+                                <input type="submit" value="Add to cart">
+                                </input>
+                            </form>
+                            </div>
+
+                        </div>
+                    {% endfor %}
+                <!--/--div-->
+</section>
+  
+        {% else %}
+            <h3>No orders then no recommendations.   <a href="{% url 'photos:index' %}">So go to Pics home page</a></h3>
+        {% endif %}
+
+
+{% endblock %}

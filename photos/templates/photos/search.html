@@ -1,0 +1,63 @@
+{% extends 'photos/base.html' %}
+
+{% block some_page_contents %}
+
+    {% load staticfiles %}
+    <div>
+        
+<section class="grid">
+            <!-- Loader 
+            <img class="grid__loader" src="{% static 'photos/images/grid.svg' %}" width="60" alt="Loader image" />
+            -->
+            <!-- Grid sizer for a fluid Isotope (Masonry) layout -->
+
+            {% if empty == 0 %}
+           
+                {% if class_words_counter > 1 %}
+                    <h1>You can search for only one category at a time: </h1>
+                    {% for class in more_than_one_class %}
+                        <button type="submit" class="btn grp btn-default" onclick="location.href='{% url 'photos:search_buttons' class.id %}'">{{ class.class_name}}</button>
+                    {% endfor %}
+                {% else %}
+            <div class="grid__sizer"></div>
+                
+                    {% for image in related_images %}
+                        <div class="grid__item shirts">
+                            <div class="slider">
+                                <div class="slider__item"> 
+                                    <a href="{% url 'photos:detail' image.id %}" >
+                                    <img src="{{ image.photo.url }}" alt="Dummy" />
+                                    </a>
+                                </div>
+
+                                
+                            </div>
+                            <div class="meta">
+                                <form id="cartform" action="{% url 'cart:cart_add' image.id  %}" method="post">
+                                {{ cart_product_form }}
+                                {% csrf_token %}
+                                <input type="submit" value="Add to cart      $100" style="font-color:black; background:#31b0d5;">
+                                </input>
+                            </form>
+                            </div>
+
+                        </div>
+
+
+                    
+                    {% endfor %}
+                {% endif %}
+        {% else %}
+           <h1>You can only search for the for the following categories.</h1>
+        </div>
+         
+            {% for class in all_classes %}
+                <button name="class_name" type="submit" class="btn btn-default grp"  style="font-color:black; background:#31b0d5;"
+                onclick="location.href='{% url 'photos:search_buttons' class.id %}'">{{ class.class_name}}</button>
+            {% endfor %}
+        {% endif %}
+</section>
+
+    </div>
+
+{% endblock %}

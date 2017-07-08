@@ -1,0 +1,30 @@
+{% extends 'photos/base.html' %}
+
+{% block some_page_contents %}
+    {% load staticfiles %}
+<h1 style="color:teal;">Login</h1>
+<form action="" method="post" style="color:teal; background: #ccccff;">
+    {% csrf_token %}
+    <div class="register_div">
+        {% if form.username.errors %}<p class="error">{{ form.username.errors }}</p>{%endif%}
+        <label for="username"{% if form.username.errors %} class="error"{% endif %}>
+            Username:</label>
+        {{ form.username }}
+    </div>
+    <div class="register_div">
+        {% if form.password.errors %}<p class="error">{{ form.password.errors }}</p>{%endif%}
+        <label for="password"{% if form.password.errors %} class="error"{% endif %}>
+            Password:</label>
+        {{ form.password }}
+    </div>
+
+    <div class="register_div">
+        <p><input style="width: 100%;" type="submit" alt="register"></p>
+
+    </div>
+    
+</form>
+
+        <a href="/users/register/" style="color:#990000" ><h3>Create a new account.</h3></a>
+
+{% endblock %}

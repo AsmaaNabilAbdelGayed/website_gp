@@ -1,0 +1,13 @@
+{% extends "photos/base.html" %}
+
+{% block some_page_contents %}
+
+  <form method="post" enctype="multipart/form-data"  style="color:teal; background: #ccccff;">
+    {% csrf_token %}
+    <div class="register_div" >
+    {{ form.as_p }}
+    <button type="submit" style="background: #ccccff; color:teal;">Upload</button>
+    </div>
+  </form>
+
+{% endblock %}

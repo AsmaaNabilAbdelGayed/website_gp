@@ -1,0 +1,19 @@
+{% extends "photos/base.html" %}
+
+{% block some_page_contents %}
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Upload</button>
+  </form>
+
+{% endblock %}
+
+
+
+<!--<form action="{% url upload_pic %}" method="post" enctype="multipart/form-data">{% csrf_token %}-->
+    <!--<p>-->
+        <!--<input id="id_image" type="file" class="" name="image">-->
+    <!--</p>-->
+    <!--<input type="submit" value="Submit" />-->
+<!--</form>-->
